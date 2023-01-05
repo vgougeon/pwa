@@ -1,5 +1,5 @@
 const urlsToCache = [
-    "/",
+    "/pwa/",
     "/pwa/index.js",
     "/pwa/styles.css",
     "/pwa/index.html",
@@ -7,11 +7,12 @@ const urlsToCache = [
     "/pwa/icon120.png",
     "/pwa/icon.svg"
 ];
+
 self.addEventListener("install", event => {
     event.waitUntil(
-        caches.open("pwa-assets")
+        caches.open("v1")
             .then(cache => {
-                cache.addAll(urlsToCache);
+                return cache.addAll(urlsToCache);
             })
     );
 });
@@ -34,7 +35,7 @@ self.addEventListener("fetch", (event) => {
             return fetch(event.request)
                 .then(async (response) => {
                     console.log("Response from network is:", response);
-                    const cache = await caches.open("pwa-assets");
+                    const cache = await caches.open("v1");
                     cache.put(e.request, response.clone());
                     return response;
                 })
