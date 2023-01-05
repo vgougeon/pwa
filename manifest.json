@@ -2,6 +2,7 @@
     "$schema": "https://json.schemastore.org/web-manifest-combined.json",
     "name": "My PWA",
     "short_name": "PWA",
+    "theme_color": "#ff0000",
     "start_url": "https://vgougeon.github.io/pwa/",
     "display": "standalone",
     "scope": "https://vgougeon.github.io/pwa/",
