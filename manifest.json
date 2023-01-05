@@ -2,13 +2,13 @@
     "$schema": "https://json.schemastore.org/web-manifest-combined.json",
     "name": "My PWA",
     "short_name": "PWA",
-    "start_url": ".",
+    "start_url": "/pwa/",
     "display": "standalone",
     "background_color": "#321212",
     "description": "My pwa app",
     "icons": [
         {
-            "src": "/icon.svg",
+            "src": "/pwa/icon.svg",
             "sizes": "512x512",
             "type": "image/svg"
         }
