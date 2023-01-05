@@ -1,5 +1,4 @@
 const urlsToCache = [
-    "/pwa/",
     "/pwa/index.js",
     "/pwa/styles.css",
     "/pwa/index.html",
@@ -7,38 +6,30 @@ const urlsToCache = [
     "/pwa/icon120.png",
     "/pwa/icon.svg"
 ];
+const addResourcesToCache = async (resources) => {
+    const cache = await caches.open("v1");
+    await cache.addAll(resources);
+};
 
-self.addEventListener("install", event => {
+self.addEventListener("install", (event) => {
     event.waitUntil(
-        caches.open("v1")
-            .then(cache => {
-                return cache.addAll(urlsToCache);
-            })
+        addResourcesToCache(urlsToCache)
     );
 });
 
-self.addEventListener("activate", event => {
-    console.log("Service worker activated");
-});
-
-self.addEventListener("fetch", (event) => {
-    console.log(`Handling fetch event for ${event.request.url}`);
-
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            if (response) {
-                console.log("Found response in cache:", response);
-                return response;
+self.addEventListener("fetch", (e) => {
+    e.respondWith(
+        (async () => {
+            const r = await caches.match(e.request);
+            console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
+            if (r) {
+                return r;
             }
-            console.log("No response found in cache. About to fetch from network…");
-
-            return fetch(event.request)
-                .then(async (response) => {
-                    console.log("Response from network is:", response);
-                    const cache = await caches.open("v1");
-                    cache.put(e.request, response.clone());
-                    return response;
-                })
-        })
+            const response = await fetch(e.request);
+            const cache = await caches.open("v1");
+            console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+            cache.put(e.request, response.clone());
+            return response;
+        })()
     );
-});
+})
