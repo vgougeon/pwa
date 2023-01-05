@@ -4,6 +4,7 @@
     "short_name": "PWA",
     "start_url": "https://vgougeon.github.io/pwa/",
     "display": "standalone",
+    "scope": "https://vgougeon.github.io/pwa/",
     "background_color": "#321212",
     "description": "My pwa app",
     "icons": [
