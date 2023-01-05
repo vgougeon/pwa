@@ -11,10 +11,6 @@ selector {
         "Helvetica Neue", sans-serif;
 }
 
-.browser {
-    display: block;
-}
-
 /* It targets only the app used within the browser */
 @media (display-mode: browser) {
     .standalone {
