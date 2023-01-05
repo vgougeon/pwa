@@ -3,3 +3,12 @@ if ('serviceWorker' in navigator) {
         scope: "https://vgougeon.github.io/pwa/"
     });
 }
+
+const refresh = () => {
+     if(navigator.onLine) document.getElementById("onlineStatus").innerHTML = 'ONLINE';
+     else document.getElementById("onlineStatus").innerHTML = 'OFFLINE';
+}
+
+refresh()
+window.addEventListener("online", refresh);
+window.addEventListener("offline", refresh);
